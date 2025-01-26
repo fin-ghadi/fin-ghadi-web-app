@@ -13,11 +13,11 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
   description,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col max-w-xs mx-auto w-full border border-gray-100">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col max-w-xs mx-auto w-full border border-gray-100 dark:border-gray-700">
       {/* Image Container */}
       <div className="relative w-full aspect-[3/2] overflow-hidden rounded-t-lg">
         <Image
-          src={image || '/400.svg'}
+          src={image || "/400.svg"}
           alt={title}
           fill
           className="object-cover"
@@ -27,10 +27,10 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
 
       {/* Content */}
       <div className="p-2 text-center space-y-1">
-        <h3 className="text-sm font-medium text-gray-800 line-clamp-1 px-1">
+        <h3 className="text-sm font-medium text-gray-800 dark:text-gray-200 line-clamp-1 px-1">
           {title}
         </h3>
-        <p className="text-xs text-gray-500 line-clamp-2 px-1 pb-1">
+        <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 px-1 pb-1">
           {description}
         </p>
       </div>

@@ -1,116 +1,85 @@
-import { title } from "@/components/primitives";
-import WeatherCard from "@/components/weatherCard";
-import ActivitiesGrid from "@/components/HorizantalScrollActivities";
-import VerticalScrollActivities from "@/components/verticalScrollActivities";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/dropdown";
+import { Avatar } from "@heroui/avatar";
+import { Link } from "@heroui/link";
+import { Button } from "@heroui/button";
 
-export default function AboutPage() {
-  const mostRecommended = [
-    {
-      id: "1",
-      image: null,
-      title: "Top Activity 1",
-      description: "Most popular choice",
-    },
-    {
-      id: "2",
-      image: null,
-      title: "Top Activity 2",
-      description: "Highly rated experience",
-    },
-    {
-      id: "3",
-      image: null,
-      title: "Top Activity 3",
-      description: "Editor's pick",
-    },
-    {
-      id: "4",
-      image: null,
-      title: "Top Activity 4",
-      description: "Local favorite",
-    },
-  ];
+import { ThemeSwitch } from "@/components/theme-switch";
+import Logo from "@/components/logo"; // Replace with your logo component
 
-  const otherActivities = [
-    {
-      id: "5",
-      image: null,
-      title: "Hiking Adventure",
-      description: "Mountain trails exploration",
-    },
-    {
-      id: "6",
-      image: null,
-      title: "City Tour",
-      description: "Historical landmarks visit",
-    },
-    {
-      id: "7",
-      image: null,
-      title: "Cooking Class",
-      description: "Local cuisine workshop",
-    },
-    {
-      id: "8",
-      image: null,
-      title: "Water Sports",
-      description: "Beach activities package",
-    },
-    {
-      id: "9",
-      image: null,
-      title: "Wine Tasting",
-      description: "Vineyard tour experience",
-    },
-    {
-      id: "10",
-      image: null,
-      title: "Photography Walk",
-      description: "Scenic spots tour",
-    },
-  ];
+export default function App() {
+  // Mock user data
+  const user = {
+    name: "Simo",
+    avatarUrl: "https://via.placeholder.com/150", // Replace with actual user avatar URL
+  };
 
   return (
-    <div className="space-y-8 pb-8">
-      {/* Greeting Section */}
-      <div className="container mx-auto px-4 text-center space-y-4">
-        <h1
-          className={title({
-            class: "text-5xl md:text-6xl font-bold mb-4",
-          })}
-        >
-          Welcome Back, Simo! 🌟
-        </h1>
-        <p className="text-xl md:text-2xl text-default-600 italic">
-          "Adventure is worthwhile in itself. Every journey opens new horizons."
-          <br />
-          <span className="text-sm">- Amelia Earhart</span>
-        </p>
-      </div>
+    <Navbar shouldHideOnScroll>
+      {/* Branding */}
+      <NavbarBrand>
+        <Logo />
+        <p className="font-bold text-inherit">Finghadi</p>
+      </NavbarBrand>
 
-      {/* Weather Section */}
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto">
-          <WeatherCard />
-        </div>
-      </div>
+      {/* Navigation Links */}
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem>
+          <Link color="foreground" href="/home">
+            Home
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/activities">
+            Activities
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/map">
+            Map
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
 
-      {/* Rest of your existing sections... */}
-      {/* Most Recommended Activities */}
-      <div className="container mx-auto px-4">
-        <h2 className={title({ class: "mb-10" })}>
-          Most Recommended Activities
-        </h2>
-        <ActivitiesGrid activities={mostRecommended} />
-      </div>
+      {/* Right Side Content */}
+      <NavbarContent justify="end">
+        {/* Theme Switch */}
+        <NavbarItem>
+          <ThemeSwitch />
+        </NavbarItem>
 
-      {/* Other Recommended Activities */}
-      <div className="container mx-auto px-4">
-        <h2 className={title({ class: "mb-6" })}>
-          Other Recommended Activities
-        </h2>
-        <VerticalScrollActivities activities={otherActivities} />
-      </div>
-    </div>
+        {/* User Dropdown */}
+        <NavbarItem>
+          <Dropdown>
+            <DropdownTrigger>
+              <Button
+                variant="light"
+                className="flex items-center gap-2"
+                aria-label="User Menu"
+              >
+                <Avatar
+                  size="sm"
+                  src={user.avatarUrl}
+                  alt={user.name}
+                  className="cursor-pointer"
+                />
+                <span className="hidden sm:block">{user.name}</span>
+              </Button>
+            </DropdownTrigger>
+            <DropdownMenu aria-label="User Actions">
+              <DropdownItem key="history">History</DropdownItem>
+              <DropdownItem key="logout" color="danger">
+                Logout
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarItem>
+      </NavbarContent>
+    </Navbar>
   );
 }

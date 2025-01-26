@@ -13,6 +13,7 @@ export default function SignIn() {
   const handleSignIn = () => {
     // Sign-in logic here
     console.log("Sign-In with", { email, password });
+ 
   };
 
   return (
@@ -62,7 +63,7 @@ export default function SignIn() {
         <div className="text-center mt-6">
           <div className="text-gray-600">
             Don&apos;t have an account?{" "}
-            <Link href="/auth/sign-up/page">
+            <Link href="/auth/sign-up">
               <p className="text-blue-600 font-semibold hover:underline">
                 Sign Up
               </p>
