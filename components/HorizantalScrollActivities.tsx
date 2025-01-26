@@ -100,6 +100,7 @@ const ActivitiesGrid: React.FC<ActivitiesGridProps> = ({ activities }) => {
             className="flex-shrink-0 w-[360px] mx-[2px]" // Adjusted width and added minimal margin
           >
             <ActivityCard
+              id={activity.id}
               image={activity.image}
               title={activity.title}
               description={activity.description}

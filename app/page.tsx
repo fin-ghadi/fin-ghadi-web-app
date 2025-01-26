@@ -1,5 +1,6 @@
 import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
+import Navbar from "@/components/navbar";
 
 import { title, subtitle } from "@/components/primitives"; // Assuming you have these primitives
 import Image from "next/image";

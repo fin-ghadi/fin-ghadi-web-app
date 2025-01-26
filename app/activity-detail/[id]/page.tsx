@@ -2,9 +2,12 @@
 
 import { useParams } from "next/navigation";
 import ActivityDetail from "@/components/activityDetail";
-import { Navbar } from "@/components/navbar";
+import Navbar from "@/components/navbar";
 const ActivityDetailPage = () => {
-  const { id } = useParams();
+  const params = useParams(); // Get all route parameters
+  const { id } = params; // Destructure `id` from params
+
+  console.log("ID:", id); // Debugging: Check if `id` is correct
 
   // In a real app, you'd fetch this data from an API based on the ID
   const activity = {
@@ -19,9 +22,13 @@ const ActivityDetailPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Navbar />
-      <ActivityDetail activity={activity} />
+    <div>
+      <div className="container mx-auto">
+        <Navbar />
+      </div>
+      <div className="container  space-y-8 pb-8">
+        <ActivityDetail activity={activity} />
+      </div>
     </div>
   );
 };

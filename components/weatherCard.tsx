@@ -8,6 +8,10 @@ interface WeatherData {
   name: string;
   image: string;
   description: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
 }
 
 const weatherTypes: WeatherData[] = [
@@ -15,31 +19,53 @@ const weatherTypes: WeatherData[] = [
     name: "Sunny Day",
     image: "/weather-icons/sun.png",
     description: "Clear and bright",
+    location: {
+      lat: 35.7595,
+      lng: -5.833,
+    },
   },
   {
     name: "Rainy Day",
     image: "/weather-icons/rainy-day.png",
     description: "Rain showers",
+    location: {
+      lat: 35.7595,
+      lng: -5.833,
+    },
   },
   {
     name: "Cloudy-Sunny",
     image: "/weather-icons/cloudy-sunny.png",
     description: "Partly cloudy",
+    location: {
+      lat: 35.7595,
+      lng: -5.833,
+    },
   },
   {
     name: "Cloudy",
     image: "/weather-icons/clouds.png",
     description: "Overcast",
+    location: {
+      lat: 35.7595,
+      lng: -5.833,
+    },
   },
   {
     name: "Cloudy-Sunny-Rainy",
     image: "/weather-icons/cloudy-sunny-rainy.png",
     description: "Mixed weather",
+    location: {
+      lat: 35.7595,
+      lng: -5.833,
+    },
   },
 ];
 
 const WeatherCard: React.FC = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
+
+  /// api to fetch weather data from the server
 
   useEffect(() => {
     const fetchRandomWeather = async () => {

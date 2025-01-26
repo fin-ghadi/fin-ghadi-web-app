@@ -3,10 +3,23 @@
 import React from "react";
 import Image from "next/image";
 
-const Logo: React.FC = () => {
+//size props
+//width and height props
+
+interface LogoProps {
+  width?: number;
+  height?: number;
+}
+
+const Logo: React.FC<LogoProps> = ({ width = 100, height = 100 }) => {
   return (
-    <div className="flex items-center">
-      <Image src="/FG-logo.png" alt="Fin Ghadi Logo" width={50} height={50} />
+    <div>
+      <Image
+        src="/FG-logo2.png"
+        alt="Fin Ghadi Logo"
+        width={width}
+        height={height}
+      />
     </div>
   );
 };

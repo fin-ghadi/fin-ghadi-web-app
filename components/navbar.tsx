@@ -1,5 +1,23 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/react";
-import { Sun, Moon, Home, Activity, LogOut, History } from "lucide-react"; // Assuming you use lucide-react for icons
+"use client";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { Link } from "@heroui/link";
+import { Button } from "@heroui/button";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/dropdown";
+import { ThemeSwitch } from "@/components/theme-switch";
+import {
+  FaSun,
+  FaMoon,
+  FaHome,
+  FaRunning,
+  FaSignOutAlt,
+  FaHistory,
+  FaUserCircle,
+} from "react-icons/fa"; // Import icons from react-icons
 import Logo from "./logo";
 import { useState } from "react";
 
@@ -12,50 +30,65 @@ export default function App() {
   };
 
   return (
-    <Navbar shouldHideOnScroll>
+    <Navbar
+      shouldHideOnScroll
+      className="
+   p-4   sticky top-0 z-50 mb-8  
+    "
+    >
       <NavbarBrand>
-        <Logo />
+        <div>
+          <Logo width={100} height={100} />
+        </div>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link color="foreground" href="#">
-            <Home className="mr-2 h-4 w-4" />
+            <FaHome className="mr-2 h-12 w-12" />
             Home
           </Link>
         </NavbarItem>
         <NavbarItem>
           <Link color="foreground" href="#">
-            <Activity className="mr-2 h-4 w-4" />
+            <FaRunning className="mr-2 h-12 w-12" />
             Activities
           </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
-          <Button isIconOnly onClick={toggleDarkMode} variant="light">
-            {isDarkMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Dropdown>
-            <DropdownTrigger>
-              <Button variant="light">
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu>
-              <DropdownItem key="logout">
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </DropdownItem>
-              <DropdownItem key="history">
-                <History className="mr-2 h-4 w-4" />
-                History
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </NavbarItem>
+        <NavbarContent justify="end" className="gap-6">
+          <NavbarItem>
+            <ThemeSwitch   />
+          </NavbarItem>
+          <NavbarItem>
+            <Dropdown>
+              <DropdownTrigger>
+                <Button variant="light" className="flex items-center gap-2">
+                  <FaUserCircle className="h-12 w-12" />{" "}
+                  {/* Increase avatar size */}
+                  <span className="text-lg">John Doe</span>{" "}
+                  {/* Static user name */}
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem key="logout" className="text-lg">
+                  {" "}
+                  {/* Increase font size */}
+                  <FaSignOutAlt className="mr-2 h-5 w-5" />{" "}
+                  {/* Increase icon size */}
+                  Logout
+                </DropdownItem>
+                <DropdownItem key="history" className="text-lg">
+                  {" "}
+                  {/* Increase font size */}
+                  <FaHistory className="mr-2 h-5 w-5" />{" "}
+                  {/* Increase icon size */}
+                  History
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </NavbarItem>
+        </NavbarContent>
       </NavbarContent>
     </Navbar>
   );
