@@ -1,56 +1,43 @@
 import { Link } from "@heroui/link";
-import { Snippet } from "@heroui/snippet";
-import { Code } from "@heroui/code";
-import { button as buttonStyles } from "@heroui/theme";
+import { Button } from "@heroui/button";
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { title, subtitle } from "@/components/primitives"; // Assuming you have these primitives
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Make&nbsp;</span>
-        <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
-        <br />
-        <span className={title()}>
-          websites regardless of your design experience.
-        </span>
-        <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
-        </div>
+    <section className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-white" style={
+      {
+        marginTop:"-50px"
+      }
+    }>
+      {/* Logo */}
+      <div className="mb-2">
+        <Image
+          src="/FG-logo2.png" // Update the path to your logo
+          alt="Fin Ghadi Logo"
+          width={350}
+          height={350}
+          className="animate-fade-in"
+        />
       </div>
 
-      <div className="flex gap-3">
-        <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
-            radius: "full",
-            variant: "shadow",
-          })}
-          href={siteConfig.links.docs}
+      {/* Get Started Button */}
+      <Link href="/auth/sign-in">
+        <Button
+          color="primary"
+          size="lg"
+          className="font-bold text-lg px-10 py-4  rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition-transform transform hover:scale-105"
         >
-          Documentation
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </Link>
-      </div>
+          Get Started
+        </Button>
+      </Link>
 
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
+      {/* Awareness Text */}
+      <p className="text-center text-gray-500 mt-8 max-w-md">
+        Explore your city, discover hidden gems, and make every journey an
+        adventure!
+      </p>
     </section>
   );
 }
