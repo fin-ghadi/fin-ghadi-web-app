@@ -23,7 +23,7 @@ export default function Home() {
       </div>
 
       {/* Get Started Button */}
-      <Link href="/auth/sign-in">
+      <Link href="/auth/sign-in/page">
         <Button
           color="primary"
           size="lg"
