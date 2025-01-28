@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { title } from "@/components/primitives";
 import WeatherCard from "@/components/weatherCard";
 import ActivitiesGrid from "@/components/HorizantalScrollActivities";
@@ -6,7 +6,7 @@ import VerticalScrollActivities from "@/components/verticalScrollActivities";
 import Navbar from "@/components/navbar";
 import { useEffect } from "react"; // Import useEffect
 import { getCurrentLocation } from "@/utils/getCurrentLocation"; // Import the utility function
-
+import GreetingCard from "@/components/greetingCard";
 export default function HomePage() {
   const mostRecommended = [
     {
@@ -86,30 +86,13 @@ export default function HomePage() {
     };
 
     fetchLocation();
-  }, []); 
+  }, []);
 
   return (
     <div>
-      <div className="container mx-auto">
-        {/* <Navbar /> */}
-      </div>
       <div className="space-y-8 pb-8">
-        {/* Greeting Section */}
-        <div className="container mx-auto px-4 text-center space-y-4">
-          <h1
-            className={title({
-              class: "text-5xl md:text-6xl font-bold mb-4",
-            })}
-          >
-            Welcome Back, Simo! 🌟
-          </h1>
-          <p className="text-xl md:text-2xl text-default-600 italic">
-            "Adventure is worthwhile in itself. Every journey opens new
-            horizons."
-            <br />
-            <span className="text-sm">- Amelia Earhart</span>
-          </p>
-        </div>
+        {/* Greating Card */}
+        <GreetingCard />
 
         {/* Weather Section */}
         <div
@@ -141,7 +124,7 @@ export default function HomePage() {
 
         {/* Other Recommended Activities */}
         <div className="container mx-auto px-4">
-          <h2 className={title({ class: "mb-6" })}>
+          <h2 className={title({ class: "mb-2" })}>
             Other Recommended Activities
           </h2>
           <VerticalScrollActivities activities={otherActivities} />

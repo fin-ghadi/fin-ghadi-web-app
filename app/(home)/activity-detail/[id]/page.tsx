@@ -23,9 +23,6 @@ const ActivityDetailPage = () => {
 
   return (
     <div>
-      <div className="container mx-auto">
-        <Navbar />
-      </div>
       <div className="container  space-y-8 pb-8">
         <ActivityDetail activity={activity} />
       </div>

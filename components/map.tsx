@@ -1,18 +1,13 @@
-// components/Map.tsx
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
-// Uncomment these lines when you have a Google Maps API key
-// import { GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api";
-
+import { Button } from "@heroui/button";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { Location } from "@/types";
 interface MapProps {
-  location: {
-    lat: number;
-    lng: number;
-  };
+  location: Location
 }
 
 const mapContainerStyle = {
@@ -24,19 +19,29 @@ const Map: React.FC<MapProps> = ({ location }) => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   useEffect(() => {
-    // Check if Leaflet is loaded (you might need to adjust this based on your Leaflet setup)
+    // Check if Leaflet is loaded
     if (window.L) {
       setIsMapLoaded(true);
     }
   }, []);
 
+  // Function to handle map click and open Google Maps with the clicked location
+  const handleMapClick = () => {
+    const clickedLat = location.latitude;
+    const clickedLng = location.longitude;
+
+    // Open Google Maps with the clicked location
+    const googleMapsUrl = `https://www.google.com/maps?q=${clickedLat},${clickedLng}`;
+    window.open(googleMapsUrl, "_blank");
+  };
+
   return (
-    <div className="rounded-xl overflow-hidden shadow-lg">
+    <div className="rounded-xl overflow-hidden shadow-lg relative">
       {isMapLoaded && (
         <>
           {/* Leaflet Map */}
           <MapContainer
-            center={[location.lat, location.lng]}
+            center={[location.latitude, location.longitude]}
             zoom={14}
             style={mapContainerStyle}
           >
@@ -44,26 +49,19 @@ const Map: React.FC<MapProps> = ({ location }) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[location.lat, location.lng]} />
+            <Marker position={[location.latitude, location.longitude]} />
           </MapContainer>
 
-          {/* Google Maps (Commented out) */}
-          {/* <LoadScriptNext
-            googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""}
-          >
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              zoom={14}
-              center={location}
-              options={{
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
-              }}
+          {/* Button to open Google Maps */}
+          <div className="absolute top-4 right-4 z-[1000]">
+            <Button
+              onPress={handleMapClick}
+              className="flex items-center justify-center p-3 bg-default-500 text-white rounded-lg shadow-md hover:bg-default-600 transition-all focus:outline-none"
             >
-              <Marker position={location} />
-            </GoogleMap>
-          </LoadScriptNext> */}
+              <FaExternalLinkAlt size={18} className="mr-2" />
+              <span className="text-sm font-medium">Open in Google Maps</span>
+            </Button>
+          </div>
         </>
       )}
     </div>

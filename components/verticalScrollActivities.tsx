@@ -23,6 +23,7 @@ const VerticalScrollActivities: React.FC<VerticalScrollActivitiesProps> = ({
           {activities.map((activity) => (
             <div key={activity.id} className="flex-shrink-0 w-full">
               <ActivityCard
+                id={activity.id}
                 image={activity.image}
                 title={activity.title}
                 description={activity.description}
