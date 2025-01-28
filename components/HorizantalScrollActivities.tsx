@@ -3,12 +3,7 @@ import React, { useRef, useState } from "react";
 import ActivityCard from "./activityCard";
 import { Button } from "@heroui/button";
 import { FaAnglesLeft, FaAnglesRight } from "react-icons/fa6";
-interface Activity {
-  id: string;
-  image: any;
-  title: string;
-  description: string;
-}
+import { Activity } from "@/types";
 
 interface ActivitiesGridProps {
   activities: Activity[];
@@ -97,14 +92,9 @@ const ActivitiesGrid: React.FC<ActivitiesGridProps> = ({ activities }) => {
         {activities.map((activity) => (
           <div
             key={activity.id}
-            className="flex-shrink-0 w-[360px] mx-[2px]" // Adjusted width and added minimal margin
+            className="flex-shrink-0 w-[360px] mx-[2px] p-6" // Adjusted width and added minimal margin
           >
-            <ActivityCard
-              id={activity.id}
-              image={activity.image}
-              title={activity.title}
-              description={activity.description}
-            />
+            <ActivityCard activity={activity} />
           </div>
         ))}
       </div>

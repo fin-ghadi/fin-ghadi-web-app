@@ -1,13 +1,7 @@
 "use client";
 import React from "react";
 import ActivityCard from "./activityCard";
-
-interface Activity {
-  id: string;
-  image: any;
-  title: string;
-  description: string;
-}
+import { Activity } from "@/types";
 
 interface VerticalScrollActivitiesProps {
   activities: Activity[];
@@ -22,12 +16,7 @@ const VerticalScrollActivities: React.FC<VerticalScrollActivitiesProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-7xl w-full">
           {activities.map((activity) => (
             <div key={activity.id} className="flex-shrink-0 w-full">
-              <ActivityCard
-                id={activity.id}
-                image={activity.image}
-                title={activity.title}
-                description={activity.description}
-              />
+              <ActivityCard activity={activity} />
             </div>
           ))}
         </div>

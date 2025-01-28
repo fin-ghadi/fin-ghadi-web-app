@@ -1,52 +1,66 @@
 import React from "react";
-import Image from "next/image";
+import { FaStar, FaRegStar } from "react-icons/fa"; // Importing star icons
 import { useRouter } from "next/navigation";
+import { Activity } from "@/types"; // Assuming Activity interface is already imported
 
 interface ActivityCardProps {
-  id: string; // Add an `id` prop for navigation
-  image: any;
-  title: string;
-  description: string;
+  activity: Activity;
 }
 
-const ActivityCard: React.FC<ActivityCardProps> = ({
-  id,
-  image,
-  title,
-  description,
-}) => {
+const ActivityCard: React.FC<ActivityCardProps> = ({ activity }) => {
   const router = useRouter();
+
+  // Helper function to render stars
+  const renderStars = (rating: number | undefined) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        i <= (rating || 0) ? (
+          <FaStar key={i} className="text-yellow-500" />
+        ) : (
+          <FaRegStar key={i} className="text-gray-400" />
+        )
+      );
+    }
+    return stars;
+  };
 
   // Handle card click
   const handleClick = () => {
-    router.push(`/activity-detail/${id}`); // Navigate to the activity detail page
+    router.push(`/activity-detail/${activity.id}`); // Navigate to the activity detail page
   };
 
   return (
     <div
       onClick={handleClick} // Make the card clickable
-      className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col max-w-xs mx-auto w-full border border-gray-100 dark:border-gray-700 cursor-pointer" // Add cursor-pointer for better UX
+      className="border rounded-2xl shadow-lg p-6 bg-white space-y-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
     >
-      {/* Image Container */}
-      <div className="relative w-full aspect-[3/2] overflow-hidden rounded-t-lg">
-        <Image
-          src={image || "/400.svg"}
-          alt={title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+      {/* Activity Title */}
+      <h2 className="text-xl font-bold text-gray-800">{activity.name}</h2>
+
+      {/* Activity Description */}
+      <p className="text-sm text-gray-600 line-clamp-2">
+        {activity.description || "No description available."}
+      </p>
+
+      {/* Rating */}
+      <div className="flex items-center space-x-2">
+        <span className="text-gray-600">Rating:</span>
+        <div className="flex">{renderStars(activity.rating)}</div>
       </div>
 
-      {/* Content */}
-      <div className="p-2 text-center space-y-1">
-        <h3 className="text-sm font-medium text-gray-800 dark:text-gray-200 line-clamp-1 px-1">
-          {title}
-        </h3>
-        <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 px-1 pb-1">
-          {description}
+      {/* Address */}
+      {activity.address && (
+        <p className="text-xs text-gray-500 flex items-center space-x-1">
+          <span role="img" aria-label="location">📍</span>
+          <span>{activity.address}</span>
         </p>
-      </div>
+      )}
+
+      {/* Date (Optional) */}
+      {activity.opening_hours && (
+        <p className="text-xs text-gray-500">Opening hours: {activity.opening_hours}</p>
+      )}
     </div>
   );
 };

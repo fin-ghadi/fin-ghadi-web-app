@@ -1,78 +1,111 @@
 "use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { title } from "@/components/primitives";
 import WeatherCard from "@/components/weatherCard";
 import ActivitiesGrid from "@/components/HorizantalScrollActivities";
 import VerticalScrollActivities from "@/components/verticalScrollActivities";
 import Navbar from "@/components/navbar";
-import { useEffect } from "react"; // Import useEffect
-import { getCurrentLocation } from "@/utils/getCurrentLocation"; // Import the utility function
+import { getCurrentLocation } from "@/utils/getCurrentLocation";
 import GreetingCard from "@/components/greetingCard";
+import { Activity } from "@/types"; // Import the Activity interface
+
 export default function HomePage() {
-  const mostRecommended = [
+  const [mostRecommended, setMostRecommended] = useState<Activity[]>([
     {
       id: "1",
-      image: null,
-      title: "Top Activity 1",
+      name: "Top Activity 1",
+      address: "Somewhere",
+      location: { latitude: 0, longitude: 0 },
+      type: "Adventure",
       description: "Most popular choice",
+      rating: 5,
     },
     {
       id: "2",
-      image: null,
-      title: "Top Activity 2",
+      name: "Top Activity 2",
+      address: "Somewhere",
+      location: { latitude: 0, longitude: 0 },
+      type: "Tour",
       description: "Highly rated experience",
+      rating: 5,
     },
     {
       id: "3",
-      image: null,
-      title: "Top Activity 3",
+      name: "Top Activity 3",
+      address: "Somewhere",
+      location: { latitude: 0, longitude: 0 },
+      type: "Cultural",
       description: "Editor's pick",
+      rating: 5,
     },
     {
       id: "4",
-      image: null,
-      title: "Top Activity 4",
+      name: "Top Activity 4",
+      address: "Somewhere",
+      location: { latitude: 0, longitude: 0 },
+      type: "Sport",
       description: "Local favorite",
+      rating: 5,
     },
-  ];
+  ]);
 
-  const otherActivities = [
+  const [otherActivities, setOtherActivities] = useState<Activity[]>([
     {
       id: "5",
-      image: null,
-      title: "Hiking Adventure",
+      name: "Hiking Adventure",
+      address: "Mountain",
+      location: { latitude: 0, longitude: 0 },
+      type: "Adventure",
       description: "Mountain trails exploration",
+      rating: 3,
     },
     {
       id: "6",
-      image: null,
-      title: "City Tour",
+      name: "City Tour",
+      address: "City Center",
+      location: { latitude: 0, longitude: 0 },
+      type: "Tour",
       description: "Historical landmarks visit",
+      rating: 4,
     },
     {
       id: "7",
-      image: null,
-      title: "Cooking Class",
+      name: "Cooking Class",
+      address: "Culinary School",
+      location: { latitude: 0, longitude: 0 },
+      type: "Workshop",
       description: "Local cuisine workshop",
+      rating: 5,
     },
     {
       id: "8",
-      image: null,
-      title: "Water Sports",
+      name: "Water Sports",
+      address: "Beach",
+      location: { latitude: 0, longitude: 0 },
+      type: "Sports",
       description: "Beach activities package",
+      rating: 4,
     },
     {
       id: "9",
-      image: null,
-      title: "Wine Tasting",
+      name: "Wine Tasting",
+      address: "Vineyard",
+      location: { latitude: 0, longitude: 0 },
+      type: "Cultural",
       description: "Vineyard tour experience",
+      rating: 2,
     },
     {
       id: "10",
-      image: null,
-      title: "Photography Walk",
+      name: "Photography Walk",
+      address: "Park",
+      location: { latitude: 0, longitude: 0 },
+      type: "Tour",
       description: "Scenic spots tour",
+      rating: 4,
     },
-  ];
+  ]);
 
   // Fetch and log the current location
   useEffect(() => {
@@ -88,10 +121,125 @@ export default function HomePage() {
     fetchLocation();
   }, []);
 
+  // Fetch recommended activities from the API
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/activities/get_suggested_activities`
+        );
+
+        const activities: Activity[] = response.data; // Assuming the API response is an array of activities
+
+        setMostRecommended(activities.slice(0, 4)); // First 4 activities for mostRecommended
+        setOtherActivities(activities.slice(4, 13)); // Next 9 activities for otherActivities
+      } catch (error) {
+        console.error("Error fetching activities:", error);
+        // In case of an error, use static activities as fallback
+        setMostRecommended([
+          {
+            id: "1",
+            name: "Top Activity 1",
+            address: "Somewhere",
+            location: { latitude: 0, longitude: 0 },
+            type: "Adventure",
+            description: "Most popular choice",
+            rating: 5,
+          },
+          {
+            id: "2",
+            name: "Top Activity 2",
+            address: "Somewhere",
+            location: { latitude: 0, longitude: 0 },
+            type: "Tour",
+            description: "Highly rated experience",
+            rating: 5,
+          },
+          {
+            id: "3",
+            name: "Top Activity 3",
+            address: "Somewhere",
+            location: { latitude: 0, longitude: 0 },
+            type: "Cultural",
+            description: "Editor's pick",
+            rating: 5,
+          },
+          {
+            id: "4",
+            name: "Top Activity 4",
+            address: "Somewhere",
+            location: { latitude: 0, longitude: 0 },
+            type: "Sport",
+            description: "Local favorite",
+            rating: 5,
+          },
+        ]);
+        setOtherActivities([
+          {
+            id: "5",
+            name: "Hiking Adventure",
+            address: "Mountain",
+            location: { latitude: 0, longitude: 0 },
+            type: "Adventure",
+            description: "Mountain trails exploration",
+            rating: 3,
+          },
+          {
+            id: "6",
+            name: "City Tour",
+            address: "City Center",
+            location: { latitude: 0, longitude: 0 },
+            type: "Tour",
+            description: "Historical landmarks visit",
+            rating: 4,
+          },
+          {
+            id: "7",
+            name: "Cooking Class",
+            address: "Culinary School",
+            location: { latitude: 0, longitude: 0 },
+            type: "Workshop",
+            description: "Local cuisine workshop",
+            rating: 5,
+          },
+          {
+            id: "8",
+            name: "Water Sports",
+            address: "Beach",
+            location: { latitude: 0, longitude: 0 },
+            type: "Sports",
+            description: "Beach activities package",
+            rating: 4,
+          },
+          {
+            id: "9",
+            name: "Wine Tasting",
+            address: "Vineyard",
+            location: { latitude: 0, longitude: 0 },
+            type: "Cultural",
+            description: "Vineyard tour experience",
+            rating: 2,
+          },
+          {
+            id: "10",
+            name: "Photography Walk",
+            address: "Park",
+            location: { latitude: 0, longitude: 0 },
+            type: "Tour",
+            description: "Scenic spots tour",
+            rating: 4,
+          },
+        ]);
+      }
+    };
+
+    fetchActivities();
+  }, []);
+
   return (
     <div>
       <div className="space-y-8 pb-8">
-        {/* Greating Card */}
+        {/* Greeting Card */}
         <GreetingCard />
 
         {/* Weather Section */}

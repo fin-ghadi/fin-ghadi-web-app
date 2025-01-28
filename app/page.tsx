@@ -1,17 +1,14 @@
 import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
-import Navbar from "@/components/navbar";
-
-import { title, subtitle } from "@/components/primitives"; // Assuming you have these primitives
 import Image from "next/image";
-
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-white" style={
-      {
-        marginTop:"-50px"
-      }
-    }>
+    <section
+      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-50 to-white"
+      style={{
+        marginTop: "-50px",
+      }}
+    >
       {/* Logo */}
       <div className="mb-2">
         <Image
@@ -24,7 +21,12 @@ export default function Home() {
       </div>
 
       {/* Get Started Button */}
-      <Link href="/auth/sign-in">
+      <Link
+        href="/auth/sign-in"
+        style={{
+          marginLeft: 15,
+        }}
+      >
         <Button
           color="primary"
           size="lg"
